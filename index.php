@@ -179,33 +179,45 @@ include "koneksi.php";
  </section>
   
   
-  
+
     <section id="galerry" class="text-center p-5 bg-warning">
-        <div class="container">
-            <h1 class="fw-bold display-4 pb-3">galerry</h1>
-            <div id="carouselExample" class="carousel slide">
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="https://i.pinimg.com/736x/f1/72/12/f172121c26aba006282777bb88373f22.jpg" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="https://i.pinimg.com/736x/a4/ed/4e/a4ed4e01cca9212c4348344d632a5f6a.jpg" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="https://i.pinimg.com/736x/19/c3/60/19c3600147cbbe53c5008508705705a2.jpg" class="d-block w-100" alt="...">
-                  </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-              </div>
+    <div class="container">
+        <h1 class="fw-bold display-4 pb-3">Gallery</h1>
+        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <?php
+                // Query untuk mengambil data galeri
+                $sql = "SELECT * FROM gallery ORDER BY id DESC";
+                $hasil = $conn->query($sql);
+                $active = true; // Penanda untuk item aktif pertama
+
+                // Loop melalui hasil query
+                while ($row = $hasil->fetch_assoc()) {
+                    $imagePath = isset($row["gambar"]) && $row["gambar"] !== '' ? 'img/' . $row["gambar"] : 'placeholder.jpg';
+                ?>
+                    <!-- Set kelas 'active' hanya untuk item pertama -->
+                    <div class="carousel-item <?= $active ? 'active' : '' ?>">
+                        <img src="<?= $imagePath ?>" class="d-block w-100" alt="Gallery Image">
+                    </div>
+                <?php
+                    $active = false; // Setelah item pertama, ubah $active menjadi false
+                }
+                ?>
+            </div>
+
+            <!-- Tombol navigasi carousel -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <section id="Aboutme" class="text-center p-5 bg-warning-subtle text-sm-start">
       <div class="container">
