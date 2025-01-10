@@ -5,8 +5,8 @@ include "koneksi.php";
 // Validasi login (untuk username dianhana dan password dian123)
 if (!isset($_SESSION['username'])) {
     // Login manual untuk pertama kali
-    $username = 'dian';
-    $password = '123456'; 
+    $username = 'hana';
+    $password = 'hana'; 
 
     $sql = "SELECT * FROM profile WHERE username = '$username' AND password = '$password'";
     $result = $conn->query($sql);
